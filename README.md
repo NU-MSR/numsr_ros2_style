@@ -18,5 +18,7 @@ Replacement for the standard ROS 2 ament_lint tests to make them more compatible
 
 ## Known gaps
 
-`colcon test` can still fail after a clean ruff run on an unused relative import in a
-package's `__init__.py` (list it in `__all__` instead).
+`ruff` ignores unused imports in a package's `__init__.py`, so `ament_flake8` reports them
+(`F401`) instead. Fix them by listing the names in `__all__`, not with `import x as x`,
+which `ament_flake8` rejects. ruff has no option to make its own fix use `__all__`
+([astral-sh/ruff#15858](https://github.com/astral-sh/ruff/issues/15858)).
